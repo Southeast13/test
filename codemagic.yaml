@@ -1,13 +1,13 @@
 workflows:
-  android-apk:
-    name: Android APK Build
-    max_build_duration: 30
+  android-workflow:
+    name: Android Debug Build
     environment:
-      java: 17
+      vars:
+        JAVA_HOME: "/usr/lib/jvm/java-17-openjdk"
     scripts:
-      - name: Give Gradlew permissions
-        script: chmod +x gradlew
-      - name: Build APK
-        script: ./gradlew assembleRelease
-    artifacts:
-      - app/build/outputs/apk/release/*.apk
+      - name: Assemble debug
+        script: |
+          ./gradlew assembleDebug
+    publishing:
+      artifacts:
+        - app/build/outputs/**/*.apk
