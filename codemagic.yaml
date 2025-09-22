@@ -1,11 +1,21 @@
 workflows:
-  sample-workflow:
-    name: Codemagic Sample Workflow
+  android-workflow:
+    name: Android Build Workflow
     max_build_duration: 120
     instance_type: mac_mini_m2
+
+    cache:
+      cache_paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
 
     scripts:
       - name: Make gradlew executable
         script: chmod +x gradlew
-      - name: Build debug APK
+
+      - name: Build Debug APK
         script: ./gradlew assembleDebug
+
+    artifacts:
+      - app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.aab
